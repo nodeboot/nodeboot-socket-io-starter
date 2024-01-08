@@ -1,0 +1,48 @@
+{
+  "name": "nodeboot-socket-io-starter",
+  "version": "1.0.0",
+  "description": "database starter inspired in spring boot database starter",
+  "main": "src/main/node/Index.js",
+  "scripts": {
+    "test": "NODE_OPTIONS=--enable-source-maps nyc --reporter=html --reporter=json-summary mocha  'src/test/node/**/*.test.js' --exit --require mocha-suppress-logs && npm run badges",
+    "test:verbose": "NODE_OPTIONS=--enable-source-maps nyc --reporter=html --reporter=json-summary mocha 'src/test/node/**/*.test.js' --exit && npm run badges",
+    "badges": "badges4cov --source=nyc_json --nyc_json_file_location=./coverage/coverage-summary.json --output_folder=.coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodeboot/nodeboot-socket-io-starter"
+  },
+  "keywords": [
+    "npm",
+    "database",
+    "starter"
+  ],
+  "author": "jrichardsz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nodeboot/nodeboot-socket-io-starter/issues"
+  },
+  "homepage": "https://github.com/nodeboot/nodeboot-socket-io-starter",
+  "dependencies": {
+    "badges4cov": "github:jrichardsz/badges4cov",
+    "knex": "^0.95.5",
+    "mysql": "^2.18.1",
+    "nodeboot-common": "file:../nodeboot-common",
+    "npm": "^8.4.0",
+    "pg": "^8.6.0",
+    "socket.io": "^4.7.3",
+    "source-map-support": "^0.5.21"
+  },
+  "devDependencies": {
+    "badgs": "^1.1.1",
+    "chai": "4.2.0",
+    "coverage-percentage": "0.0.2",
+    "express": "^4.18.2",
+    "find-free-port": "^2.0.0",
+    "mocha": "8.1.3",
+    "mocha-suppress-logs": "^0.3.1",
+    "nyc": "^15.1.0",
+    "socket.io-client": "^4.7.3",
+    "yargs": "^17.3.1"
+  }
+}

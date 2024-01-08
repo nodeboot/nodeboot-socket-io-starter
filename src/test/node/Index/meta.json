@@ -1,0 +1,574 @@
+[
+    {
+        "variables": {},
+        "functions": {},
+        "meta": {
+            "name": "PostMiddleware",
+            "arguments": {
+                "name": "errorMiddleware"
+            },
+            "location": "/src/main/middleware/ErrorMiddleware.js",
+            "moduleName": "ErrorMiddleware"
+        }
+    },
+    {
+        "variables": {
+            "dbSession": [
+                {
+                    "name": "Autowire",
+                    "arguments": {
+                        "name": "dbSession"
+                    }
+                }
+            ]
+        },
+        "functions": {},
+        "meta": {
+            "name": "Service",
+            "arguments": {
+                "name": "gatewayRepository"
+            },
+            "location": "/src/main/repository/GatewayRepository.js",
+            "moduleName": "GatewayRepository"
+        }
+    },
+    {
+        "variables": {
+            "dbSession": [
+                {
+                    "name": "Autowire",
+                    "arguments": {
+                        "name": "dbSession"
+                    }
+                }
+            ]
+        },
+        "functions": {},
+        "meta": {
+            "name": "Service",
+            "arguments": {
+                "name": "roomRepository"
+            },
+            "location": "/src/main/repository/RoomRepository.js",
+            "moduleName": "RoomRepository"
+        }
+    },
+    {
+        "variables": {
+            "dbSession": [
+                {
+                    "name": "Autowire",
+                    "arguments": {
+                        "name": "dbSession"
+                    }
+                }
+            ]
+        },
+        "functions": {},
+        "meta": {
+            "name": "Service",
+            "arguments": {
+                "name": "roundRepository"
+            },
+            "location": "/src/main/repository/RoundRepository.js",
+            "moduleName": "RoundRepository"
+        }
+    },
+    {
+        "variables": {
+            "dbSession": [
+                {
+                    "name": "Autowire",
+                    "arguments": {
+                        "name": "dbSession"
+                    }
+                }
+            ]
+        },
+        "functions": {},
+        "meta": {
+            "name": "Service",
+            "arguments": {
+                "name": "spellRepository"
+            },
+            "location": "/src/main/repository/SpellRepository.js",
+            "moduleName": "SpellRepository"
+        }
+    },
+    {
+        "variables": {
+            "dbSession": [
+                {
+                    "name": "Autowire",
+                    "arguments": {
+                        "name": "dbSession"
+                    }
+                }
+            ]
+        },
+        "functions": {},
+        "meta": {
+            "name": "Service",
+            "arguments": {
+                "name": "userRepository"
+            },
+            "location": "/src/main/repository/UserRepository.js",
+            "moduleName": "UserRepository"
+        }
+    },
+    {
+        "variables": {
+            "userService": [
+                {
+                    "name": "Autowire",
+                    "arguments": {
+                        "name": "userService"
+                    }
+                }
+            ]
+        },
+        "functions": {
+            "newMessageFunction": [
+                {
+                    "name": "SocketIoEvent",
+                    "arguments": {
+                        "eventName": "new-message"
+                    }
+                },
+                {
+                    "name": "Protected",
+                    "arguments": {
+                        "permission": "battle:request"
+                    }
+                }
+            ],
+            "bar": [
+                {
+                    "name": "Bar",
+                    "arguments": {
+                        "path": "/battle/operation/bar"
+                    }
+                }
+            ]            
+        },
+        "meta": {
+            "name": "SocketIoController",
+            "arguments": {
+                "name": "battleRoute"
+            },
+            "location": "/src/main/routes/BattleRoute.js",
+            "moduleName": "BattleRoute"
+        }
+    },
+    {
+        "variables": {
+            "gatewayService": [
+                {
+                    "name": "Autowire",
+                    "arguments": {
+                        "name": "gatewayService"
+                    }
+                }
+            ]
+        },
+        "functions": {
+            "findGatewaysByZoneLevel": [
+                {
+                    "name": "SocketIoEvent",
+                    "arguments": {
+                        "eventName": "attack"
+                    }
+                },
+                {
+                    "name": "Protected",
+                    "arguments": {
+                        "permission": "gateways-by-level:read"
+                    }
+                }
+            ],
+            "closeFunction": [
+                {
+                    "name": "SocketIoEvent",
+                    "arguments": {
+                        "eventName": "close"
+                    }
+                },
+                {
+                    "name": "Protected",
+                    "arguments": {
+                        "permission": "gateways-by-position:read"
+                    }
+                }
+            ],
+            "baz": [
+                {
+                    "name": "Baz",
+                    "arguments": {
+                        "path": "/battle/operation/baz"
+                    }
+                }
+            ]                
+        },
+        "meta": {
+            "name": "SocketIoController",
+            "arguments": {
+                "name": "gatewayRoute"
+            },
+            "location": "/src/main/routes/GatewayRoute.js",
+            "moduleName": "GatewayRoute"
+        }
+    },
+    {
+        "variables": {
+            "dbSession": [
+                {
+                    "name": "Autowire",
+                    "arguments": {
+                        "name": "dbSession"
+                    }
+                }
+            ]
+        },
+        "functions": {
+            "getHealth": [
+                {
+                    "name": "Get",
+                    "arguments": {
+                        "path": "/health"
+                    }
+                }
+            ]
+        },
+        "meta": {
+            "name": "Route",
+            "arguments": {
+                "name": "healthRoute"
+            },
+            "location": "/src/main/routes/HealthRoute.js",
+            "moduleName": "HealthRoute"
+        }
+    },
+    {
+        "variables": {
+            "roomService": [
+                {
+                    "name": "Autowire",
+                    "arguments": {
+                        "name": "roomService"
+                    }
+                }
+            ]
+        },
+        "functions": {
+            "query": [
+                {
+                    "name": "Post",
+                    "arguments": {
+                        "path": "/room/query"
+                    }
+                },
+                {
+                    "name": "Protected",
+                    "arguments": {
+                        "permission": "room:query"
+                    }
+                }
+            ],
+            "operation": [
+                {
+                    "name": "Post",
+                    "arguments": {
+                        "path": "/room/operation/enter"
+                    }
+                },
+                {
+                    "name": "Protected",
+                    "arguments": {
+                        "permission": "room:enter"
+                    }
+                }
+            ]
+        },
+        "meta": {
+            "name": "Route",
+            "arguments": {
+                "name": "roomRoute"
+            },
+            "location": "/src/main/routes/RoomRoute.js",
+            "moduleName": "RoomRoute"
+        }
+    },
+    {
+        "variables": {
+            "spellRepository": [
+                {
+                    "name": "Autowire",
+                    "arguments": {
+                        "name": "spellRepository"
+                    }
+                }
+            ]
+        },
+        "functions": {
+            "findAll": [
+                {
+                    "name": "Get",
+                    "arguments": {
+                        "path": "/spell"
+                    }
+                },
+                {
+                    "name": "Protected",
+                    "arguments": {
+                        "permission": "spell:read"
+                    }
+                }
+            ]
+        },
+        "meta": {
+            "name": "Route",
+            "arguments": {
+                "name": "spellRoute"
+            },
+            "location": "/src/main/routes/SpellRoute.js",
+            "moduleName": "SpellRoute"
+        }
+    },
+    {
+        "variables": {
+            "userService": [
+                {
+                    "name": "Autowire",
+                    "arguments": {
+                        "name": "userService"
+                    }
+                }
+            ],
+            "iamDataService": [
+                {
+                    "name": "Autowire",
+                    "arguments": {
+                        "name": "iamDataService"
+                    }
+                }
+            ],
+            "configuration": [
+                {
+                    "name": "Autowire",
+                    "arguments": {
+                        "name": "configuration"
+                    }
+                }
+            ]
+        },
+        "functions": {
+            "findUser": [
+                {
+                    "name": "Get",
+                    "arguments": {
+                        "path": "/user/profile"
+                    }
+                },
+                {
+                    "name": "Protected",
+                    "arguments": {
+                        "permission": "self-profile:read"
+                    }
+                }
+            ],
+            "isPlayerUsernameAlreadyTaken": [
+                {
+                    "name": "Post",
+                    "arguments": {
+                        "path": "/user/query/exist-username"
+                    }
+                }
+            ],
+            "createUser": [
+                {
+                    "name": "Post",
+                    "arguments": {
+                        "path": "/user"
+                    }
+                }
+            ],
+            "updateUser": [
+                {
+                    "name": "Put",
+                    "arguments": {
+                        "path": "/user"
+                    }
+                },
+                {
+                    "name": "Protected",
+                    "arguments": {
+                        "permission": "self:update"
+                    }
+                }
+            ]
+        },
+        "meta": {
+            "name": "Route",
+            "arguments": {
+                "name": "userRoute"
+            },
+            "location": "/src/main/routes/UserRoute.js",
+            "moduleName": "UserRoute"
+        }
+    },
+    {
+        "variables": {
+            "userRepository": [
+                {
+                    "name": "Autowire",
+                    "arguments": {
+                        "name": "userRepository"
+                    }
+                }
+            ]
+        },
+        "functions": {},
+        "meta": {
+            "name": "Service",
+            "arguments": {
+                "name": "creatureService"
+            },
+            "location": "/src/main/service/CreatureService.js",
+            "moduleName": "CreatureService"
+        }
+    },
+    {
+        "variables": {
+            "gatewayRepository": [
+                {
+                    "name": "Autowire",
+                    "arguments": {
+                        "name": "gatewayRepository"
+                    }
+                }
+            ],
+            "geoLocationHttpService": [
+                {
+                    "name": "Autowire",
+                    "arguments": {
+                        "name": "geoLocationHttpService"
+                    }
+                }
+            ]
+        },
+        "functions": {},
+        "meta": {
+            "name": "Service",
+            "arguments": {
+                "name": "gatewayService"
+            },
+            "location": "/src/main/service/GatewayService.js",
+            "moduleName": "GatewayService"
+        }
+    },
+    {
+        "variables": {
+            "configuration": [
+                {
+                    "name": "Autowire",
+                    "arguments": {
+                        "name": "configuration"
+                    }
+                }
+            ]
+        },
+        "functions": {},
+        "meta": {
+            "name": "Service",
+            "arguments": {
+                "name": "geoLocationHttpService"
+            },
+            "location": "/src/main/service/GeoLocationHttpService.js",
+            "moduleName": "GeoLocationHttpService"
+        }
+    },
+    {
+        "variables": {
+            "configuration": [
+                {
+                    "name": "Autowire",
+                    "arguments": {
+                        "name": "configuration"
+                    }
+                }
+            ]
+        },
+        "functions": {},
+        "meta": {
+            "name": "Service",
+            "arguments": {
+                "name": "idleService"
+            },
+            "location": "/src/main/service/IdleService.js",
+            "moduleName": "IdleService"
+        }
+    },
+    {
+        "variables": {
+            "roomRepository": [
+                {
+                    "name": "Autowire",
+                    "arguments": {
+                        "name": "roomRepository"
+                    }
+                }
+            ]
+        },
+        "functions": {},
+        "meta": {
+            "name": "Service",
+            "arguments": {
+                "name": "roomService"
+            },
+            "location": "/src/main/service/RoomService.js",
+            "moduleName": "RoomService"
+        }
+    },
+    {
+        "variables": {
+            "roundRepository": [
+                {
+                    "name": "Autowire",
+                    "arguments": {
+                        "name": "roundRepository"
+                    }
+                }
+            ]
+        },
+        "functions": {},
+        "meta": {
+            "name": "Service",
+            "arguments": {
+                "name": "roundService"
+            },
+            "location": "/src/main/service/RoundService.js",
+            "moduleName": "RoundService"
+        }
+    },
+    {
+        "variables": {
+            "userRepository": [
+                {
+                    "name": "Autowire",
+                    "arguments": {
+                        "name": "userRepository"
+                    }
+                }
+            ]
+        },
+        "functions": {},
+        "meta": {
+            "name": "Service",
+            "arguments": {
+                "name": "userService"
+            },
+            "location": "/src/main/service/UserService.js",
+            "moduleName": "UserService"
+        }
+    }
+]
