@@ -9,7 +9,7 @@ function SocketIoStarter() {
     if (!ObjectHelper.hasProperty(global.NodebootContext, "instancedDependecies.configuration.nodeboot.socket-io.settings")) {
       console.log("nodeboot.socket-io.settings was not found in application.json. Socket.io starter will configured with default values.");
     } else{
-      socketioSettings = global.NodebootContext.instancedDependecies.configuration.nodeboot.socketio;
+      socketioSettings = global.NodebootContext.instancedDependecies.configuration.nodeboot["socket-io"].settings;
     }
     
     if (!ObjectHelper.hasProperty(global.NodebootContext, "instancedDependecies.expressLiveServer")) {
@@ -28,30 +28,67 @@ function SocketIoStarter() {
       console.log("headers at connection:")
       console.log(socket.handshake.headers)
 
-      for(var functionsInfo of functions){
-        //get module instance
-        let instanceId = functionsInfo.instanceId;
-        if(typeof instanceId === 'undefined') continue;
+      //due to this https://stackoverflow.com/q/77769886/3957754
+      //we cannot bind the listener before the connection. I mean at the startup
+      //there is no way to bind two connections
 
-        var module = global.NodebootContext.instancedDependecies[instanceId]
+      socket.onAny((eventName, data) => {
 
-        if(typeof module === 'undefined') continue;
+        console.log("received event: "+eventName)
+        let notFound = 0;
+        for(var functionsInfo of functions){
+          //get module instance
+          let instanceId = functionsInfo.instanceId;
+          if(typeof instanceId === 'undefined') continue;
+  
+          var module = global.NodebootContext.instancedDependecies[instanceId]
+  
+          var errorFunctionInstance = getErrorFunctionInstance(dependencies, module);
+  
+          if(typeof module === 'undefined') continue;
+  
+          if(typeof functionsInfo.functionName === 'undefined') continue;
+  
+          if(typeof functionsInfo.arguments === 'undefined' || typeof functionsInfo.arguments.eventName === 'undefined') {
+            console.log("@SocketIoEvent require eventName attribute in function: "+functionsInfo.functionName)
+            continue;
+          }
 
-        if(typeof functionsInfo.functionName === 'undefined') continue;
-
-        if(typeof functionsInfo.arguments === 'undefined' || typeof functionsInfo.arguments.eventName === 'undefined') {
-          console.log("@SocketIoEvent require eventName attribute in function: "+functionsInfo.functionName)
-          continue;
+          if(functionsInfo.arguments.eventName == eventName){
+            var functionInstance = module[functionsInfo.functionName];
+            if(typeof functionInstance === 'undefined') continue;
+            console.log(`executing module: ${instanceId} function: ${functionsInfo.functionName}`)
+  
+            return functionInstance(data, socket, io).catch(function(err){
+              //apply the global error handler
+              if(typeof errorFunctionInstance !== 'undefined') {
+                return errorFunctionInstance(err, socket, io);
+              }else{
+                throw err;
+              }            
+            }); 
+          }else{
+            notFound++;
+          }
         }
-
-        var functionInstance = module[functionsInfo.functionName];
-        if(typeof functionInstance === 'undefined') continue;
-
-        socket.on(functionsInfo.arguments.eventName, function (data) {
-          functionInstance(data, socket, io.sockets);
-        });
-      }
+        
+        if(notFound===functions.length){
+          console.log("event from client don't have a listener in the server: "+eventName)
+        }
+      });
     }); 
+  }
+
+  function getErrorFunctionInstance(dependencies, module){
+    var errorHandler = MetaHelper.getFunctionsOfModulesAnnotatedWith(dependencies, "SocketIoController", "SocketIoErrorHandler");
+    //TODO: validate only one error handler
+    if(errorHandler.length === 0) return;
+
+    var functionName = errorHandler[0].functionName
+
+    if(typeof functionName === 'undefined') return;
+
+    return  module[functionName];
   }
 }
 
