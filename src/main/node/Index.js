@@ -31,7 +31,7 @@ function SocketIoStarter() {
       //due to this https://stackoverflow.com/q/77769886/3957754
       //we cannot bind the listener before the connection. I mean at the startup
       //there is no way to bind two connections
-
+      console.log("nodeboot-socket-io-starter was detected. Configured");
       socket.onAny((eventName, data) => {
 
         console.log("received event: "+eventName)
